@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LBeaconLaserPointer", "LBeaconLaserPointer\LBeaconLaserPointer.csproj", "{7795A9E6-D5A1-4C15-8A5B-BB5331892884}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|ARM.Build.0 = Debug|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|ARM.Deploy.0 = Debug|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x64.ActiveCfg = Debug|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x64.Build.0 = Debug|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x64.Deploy.0 = Debug|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x86.ActiveCfg = Debug|x86
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x86.Build.0 = Debug|x86
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Debug|x86.Deploy.0 = Debug|x86
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|ARM.ActiveCfg = Release|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|ARM.Build.0 = Release|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|ARM.Deploy.0 = Release|ARM
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x64.ActiveCfg = Release|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x64.Build.0 = Release|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x64.Deploy.0 = Release|x64
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x86.ActiveCfg = Release|x86
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x86.Build.0 = Release|x86
+		{7795A9E6-D5A1-4C15-8A5B-BB5331892884}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F28B2ED-8E4A-4C0A-AE4A-54E4A1E0640C}
+	EndGlobalSection
+EndGlobal
