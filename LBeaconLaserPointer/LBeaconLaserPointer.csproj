@@ -29,6 +29,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -52,6 +53,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
@@ -95,22 +97,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xaml\HomePage.xaml.cs">
+    <Compile Include="Modules\Utilities\FrameRenderer.cs" />
+    <Compile Include="Modules\Utilities\FrameSourceViewModels.cs" />
+    <Compile Include="View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xaml\MainPage.xaml.cs">
+    <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\ComPass\CompassController.cs" />
     <Compile Include="Modules\Motor\MotorController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="xaml\PointPage.xaml.cs">
+    <Compile Include="View\PointPage.xaml.cs">
       <DependentUpon>PointPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xaml\ScanBarcodePage.xaml.cs">
+    <Compile Include="View\ScanBarcodePage.xaml.cs">
       <DependentUpon>ScanBarcodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xaml\SetPage.xaml.cs">
+    <Compile Include="View\SetPage.xaml.cs">
       <DependentUpon>SetPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -129,38 +133,41 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="xaml\image\set.png" />
-    <Content Include="xaml\image\testImgae.jpg" />
+    <Content Include="View\image\set.png" />
+    <Content Include="View\image\testImgae.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="xaml\HomePage.xaml">
+    <Page Include="View\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xaml\MainPage.xaml">
+    <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="xaml\PointPage.xaml">
+    <Page Include="View\PointPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xaml\ScanBarcodePage.xaml">
+    <Page Include="View\ScanBarcodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xaml\SetPage.xaml">
+    <Page Include="View\SetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.uwp">
+      <Version>1.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

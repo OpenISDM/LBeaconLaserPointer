@@ -10,7 +10,7 @@
 
     <Grid Background="Gray">
         <TextBlock Text="地點:"  FontSize="36" HorizontalAlignment="Left" Width="160"/>
-        <Image x:Name="imageSource" Source="ms-appx:///xaml/image/testImgae.jpg" Height="460"  Width="460"/>
+        <Image x:Name="imageSource" Source="ms-appx:///View/image/testImgae.jpg" Height="460"  Width="460"/>
         <Button x:Name="BtnGoBack" HorizontalAlignment="Right" VerticalAlignment="Top" Width="110" Height="110" Margin="0,30,30,0" Click="BtnGoBack_Click"/>
     </Grid>
 </Page>
