@@ -1,0 +1,16 @@
+﻿<Page
+    Width="800" Height="480"
+    x:Class="LBeaconLaserPointer.xaml.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LBeaconLaserPointer.xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button x:Name="BtnSet" Content="set" VerticalAlignment="Center" HorizontalAlignment="Left" Height="250" Width="250"  Margin="100,0,0,0" Click="BtnSet_Click"/>
+        <Button x:Name="BtnPoint" Content="point" VerticalAlignment="Center" HorizontalAlignment="Right" Height="250" Width="250"  Margin="0,0,100,0" Click="BtnPoint_Click"/>
+    </Grid>
+</Page>
