@@ -99,13 +99,13 @@
     </Compile>
     <Compile Include="Modules\Utilities\FrameRenderer.cs" />
     <Compile Include="Modules\Utilities\FrameSourceViewModels.cs" />
+    <Compile Include="Modules\Utilities\Utility.cs" />
     <Compile Include="View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\ComPass\CompassController.cs" />
     <Compile Include="Modules\Motor\MotorController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\PointPage.xaml.cs">
