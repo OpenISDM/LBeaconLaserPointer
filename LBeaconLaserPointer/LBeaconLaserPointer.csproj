@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Distance\DistanceSensor.cs" />
     <Compile Include="Modules\Utilities\FrameRenderer.cs" />
     <Compile Include="Modules\Utilities\FrameSourceViewModels.cs" />
     <Compile Include="Modules\Utilities\Utility.cs" />
