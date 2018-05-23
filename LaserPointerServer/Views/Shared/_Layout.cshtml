@@ -24,13 +24,14 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Beacon", "Index", "BeaconInformations")</li>
+                    <li>@Html.ActionLink("Beacon資訊", "Index", "BeaconInformations")</li>
+                    <li>@Html.ActionLink("定位儀資訊", "Index", "LaserPointerInformations")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-    {
-                <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-}
+                    {
+                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

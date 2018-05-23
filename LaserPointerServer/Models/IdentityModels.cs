@@ -27,6 +27,7 @@ namespace IdentitySample.Models
         }
 
         public virtual DbSet<BeaconInformation> BeaconInformations { get; set; }
+        public virtual DbSet<LaserPointerInformation> LaserPointerInformations { get; set; }
 
         static ApplicationDbContext()
         {
