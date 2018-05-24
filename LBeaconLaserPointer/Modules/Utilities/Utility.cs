@@ -76,8 +76,7 @@ namespace LBeaconLaserPointer.Modules
             Yb = TargetPoint.Latitude - CenterPoint.Latitude;
 
             double c = Math.Sqrt(Xa * Xa + Ya * Ya) * Math.Sqrt(Xb * Xb + Yb * Yb);
-
-            Angle = Math.Asin((FacePoint.Longitude * TargetPoint.Latitude - TargetPoint.Longitude * FacePoint.Latitude) / c);
+            Angle = Math.Asin((Xa * Yb - Xb * Ya) / c);
 
             return Angle;
         }
