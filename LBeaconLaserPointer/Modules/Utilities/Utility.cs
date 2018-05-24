@@ -3,15 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 
 namespace LBeaconLaserPointer.Modules
 {
-    public class Utility
+    public class RotateAngle
     {
-        public static double RotateAngle(Point CenterPoint, Point FirstPoint, Point SecondPoint)
+        /// <summary>
+        /// 垂直角度
+        /// </summary>
+        /// <param name="CenterPoint">Pointer 位置</param>
+        /// <param name="TargetPoint">目標位置</param>
+        /// <param name="Hight">高度 單位公尺</param>
+        /// <returns></returns>
+        public static double VerticalRotateAngle(GeoCoordinate CenterPoint, GeoCoordinate TargetPoint, double Hight)
         {
-            double DotProductANS = DotProductAngle(CenterPoint, FirstPoint, SecondPoint);
-            double OuterProductANS = OuterProductAngle(CenterPoint, FirstPoint, SecondPoint);
+            return Math.Acos(Hight/CenterPoint.GetDistanceTo(TargetPoint));
+        }
+
+        /// <summary>
+        /// 水平角度(含方向)
+        /// </summary>
+        /// <param name="CenterPoint">Pointer 位置</param>
+        /// <param name="FacePoint">面向位置</param>
+        /// <param name="TargetPoint">目標位置</param>
+        /// <returns></returns>
+        public static double HorizontalRotateAngle(GeoCoordinate CenterPoint, GeoCoordinate FacePoint, GeoCoordinate TargetPoint)
+        {
+            double DotProductANS = CosineAngle(CenterPoint, FacePoint, TargetPoint);
+            double OuterProductANS = OuterProductAngle(CenterPoint, FacePoint, TargetPoint);
 
             if (OuterProductANS < 0)
                 return -DotProductANS * 180 / Math.PI;
@@ -19,54 +39,47 @@ namespace LBeaconLaserPointer.Modules
                 return DotProductANS * 180 / Math.PI;
         }
 
-        private static double DotProductAngle(Point CenterPoint, Point FirstPoint, Point SecondPoint)
+        /// <summary>
+        /// 餘弦定理角度
+        /// </summary>
+        /// <param name="CenterPoint">Pointer 位置</param>
+        /// <param name="FacePoint">面向位置</param>
+        /// <param name="TargetPoint">目標位置</param>
+        /// <returns></returns>
+        public static double CosineAngle(GeoCoordinate CenterPoint, GeoCoordinate FacePoint, GeoCoordinate TargetPoint)
+        {
+            double CenterToTarget = CenterPoint.GetDistanceTo(TargetPoint);
+            double CenterToFace = CenterPoint.GetDistanceTo(FacePoint);
+            double FaceToTarget = FacePoint.GetDistanceTo(TargetPoint);
+            
+            return Math.Acos(
+                (CenterToTarget * CenterToTarget + CenterToFace * CenterToFace - FaceToTarget * FaceToTarget)/ 
+                (2 * CenterToTarget * CenterToFace));
+        }
+
+        /// <summary>
+        /// 外積算角度
+        /// </summary>
+        /// <param name="CenterPoint">Pointer 位置</param>
+        /// <param name="FacePoint">面向位置</param>
+        /// <param name="TargetPoint">目標位置</param>
+        /// <returns></returns>
+        public static double OuterProductAngle(GeoCoordinate CenterPoint, GeoCoordinate FacePoint, GeoCoordinate TargetPoint)
         {
             double Xa, Xb, Ya, Yb;
             double Angle;
 
-            Xa = FirstPoint.X - CenterPoint.X;
-            Ya = FirstPoint.Y - CenterPoint.Y;
+            Xa = FacePoint.Longitude - CenterPoint.Longitude;
+            Ya = FacePoint.Latitude - CenterPoint.Latitude;
 
-            Xb = SecondPoint.X - CenterPoint.X;
-            Yb = SecondPoint.Y - CenterPoint.Y;
-
-            double c = Math.Sqrt(Xa * Xa + Ya * Ya) * Math.Sqrt(Xb * Xb + Yb * Yb);
-
-            if (c == 0) return -1;
-
-            Angle = Math.Acos((Xa * Xb + Ya * Yb) / c);
-
-            return Angle;
-        }
-
-        private static double OuterProductAngle(Point CenterPoint, Point FirstPoint, Point SecondPoint)
-        {
-            double Xa, Xb, Ya, Yb;
-            double Angle;
-
-            Xa = FirstPoint.X - CenterPoint.X;
-            Ya = FirstPoint.Y - CenterPoint.Y;
-
-            Xb = SecondPoint.X - CenterPoint.X;
-            Yb = SecondPoint.Y - CenterPoint.Y;
+            Xb = TargetPoint.Longitude - CenterPoint.Longitude;
+            Yb = TargetPoint.Latitude - CenterPoint.Latitude;
 
             double c = Math.Sqrt(Xa * Xa + Ya * Ya) * Math.Sqrt(Xb * Xb + Yb * Yb);
 
-            Angle = Math.Asin((FirstPoint.X * SecondPoint.Y - SecondPoint.X * FirstPoint.Y) / c);
+            Angle = Math.Asin((FacePoint.Longitude * TargetPoint.Latitude - TargetPoint.Longitude * FacePoint.Latitude) / c);
 
             return Angle;
-        }
-    }
-
-    public class Point
-    {
-        public double X;
-        public double Y;
-
-        public Point(int X, int Y)
-        {
-            this.X = X;
-            this.Y = Y;
         }
     }
 }

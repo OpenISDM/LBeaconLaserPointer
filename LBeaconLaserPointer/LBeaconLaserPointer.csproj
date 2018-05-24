@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Distance\DistanceSensor.cs" />
     <Compile Include="Modules\Utilities\FrameRenderer.cs" />
     <Compile Include="Modules\Utilities\FrameSourceViewModels.cs" />
     <Compile Include="Modules\Utilities\Utility.cs" />
@@ -170,7 +171,12 @@
       <Version>1.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GeoCoordinatePortable\GeoCoordinatePortable.csproj">
+      <Project>{3f8d76e7-1af6-40f5-960f-13c4dfa80935}</Project>
+      <Name>GeoCoordinatePortable</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
