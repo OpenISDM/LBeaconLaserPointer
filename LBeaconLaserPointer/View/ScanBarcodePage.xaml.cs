@@ -87,6 +87,7 @@ namespace LBeaconLaserPointer.xaml
             catch (Exception exception)
             {
                 await CleanupMediaCaptureAsync();
+                Debug.WriteLine(exception.Message);
                 return;
             }
 
