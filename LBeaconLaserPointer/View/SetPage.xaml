@@ -6,13 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Enabled">
 
     <StackPanel>
         <Grid Height="90" Background="Beige">
             <TextBlock Text="設定" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
             <Button x:Name="BtnBack" Content="Back" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnBack_Click" />
         </Grid>
+        <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="150"/>
     </StackPanel>
 
 </Page>

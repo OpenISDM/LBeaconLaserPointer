@@ -37,7 +37,7 @@ namespace LBeaconLaserPointer.xaml
 
         private void BtnGoNext_Click(object sender, RoutedEventArgs e)
         {
-            if(LbLocation.SelectedItem.ToString()!=null)
+            if(LbLocation.SelectedItem!= null)
             Frame.Navigate(typeof(ScanBarcodePage), LbLocation.SelectedItem.ToString());
         }
     }

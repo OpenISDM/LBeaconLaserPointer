@@ -1,0 +1,23 @@
+﻿<Page
+    Width="800" Height="480"
+    x:Class="LBeaconLaserPointer.View.LBeaconInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LBeaconLaserPointer.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <StackPanel>
+            <Grid Height="90" Background="Beige">
+                <TextBlock x:Name="TextLBeaconID" Text="LBeaconID:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
+                <Button x:Name="BtnGoBack" Content="Back" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnGoBack_Click" />
+            </Grid>
+            <TextBlock x:Name="TextLBeaconInfo" Text="經度:&#x000A;緯度:&#x000A;參考點:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
+        </StackPanel>
+        <Button x:Name="BtnGoStart" Content="START" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="100" Margin="30,30,30,30" Click="BtnGoStart_Click" />
+    </Grid>
+    
+    
+</Page>

@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
 
     <Grid Background="Gray">
-        <TextBlock Text="地點:"  FontSize="36" HorizontalAlignment="Left" Width="160"/>
         <Image x:Name="imageSource" Source="ms-appx:///View/image/testImgae.jpg" Height="460"  Width="460"/>
+        <TextBlock x:Name="TextSelectedLocation" Text="地點:"  FontSize="32" HorizontalAlignment="Left" />
         <Button x:Name="BtnGoBack" HorizontalAlignment="Right" VerticalAlignment="Top" Width="110" Height="110" Margin="0,30,30,0" Click="BtnGoBack_Click"/>
     </Grid>
 </Page>
