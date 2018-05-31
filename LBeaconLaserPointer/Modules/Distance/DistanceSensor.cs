@@ -27,9 +27,6 @@ namespace LBeaconLaserPointer.Modules.Distance
             SerialPort.ReadTimeout = TimeSpan.FromMilliseconds(1000);
             SerialPort.BaudRate = 115200;
             SerialPort.DataBits = 8;
-            //SerialPort.Parity = SerialParity.None;
-            //SerialPort.StopBits = SerialStopBitCount.One;
-            //SerialPort.Handshake = SerialHandshake.None;
 
             ReadCancellationTokenSource = new CancellationTokenSource();
             ReadData();
