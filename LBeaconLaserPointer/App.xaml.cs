@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LBeaconLaserPointer.Modules.Distance;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace LBeaconLaserPointer
         public App()
         {
             this.InitializeComponent();
+            DistanceSensor.Init();
             this.Suspending += OnSuspending;
         }
 
