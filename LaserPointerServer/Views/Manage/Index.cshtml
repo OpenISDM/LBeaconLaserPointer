@@ -8,6 +8,12 @@
 <div class="row">
     <div class="col-md-8">
         <p>
+            Id: @(Model.Id) 
+        </p>
+        <p>
+            API Token: @(Model.Token) 
+        </p>
+        <p>
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword")
@@ -40,7 +46,7 @@
             <form method="post" action="/Manage/DisableTFA">
                 <p>
                     Two factor is currently enabled:
-                    <input type="submit" value="Disable" class="btn btn-default"/>
+                    <input type="submit" value="Disable" class="btn btn-default" />
                 </p>
             </form>
         }
@@ -49,7 +55,7 @@
             <form method="post" action="/Manage/EnableTFA">
                 <p>
                     Two factor is currently disabled:
-                    <input type="submit" value="Enable" class="btn btn-default"/>
+                    <input type="submit" value="Enable" class="btn btn-default" />
                 </p>
             </form>
         }
@@ -67,7 +73,7 @@
             <form method="post" action="/Manage/RememberBrowser">
                 <p>
                     Browser is curently not remembered for two factor:
-                    <input type="submit" value="Remember Browser" class="btn btn-default"/>
+                    <input type="submit" value="Remember Browser" class="btn btn-default" />
                 </p>
             </form>
         }

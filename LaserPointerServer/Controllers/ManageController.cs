@@ -49,6 +49,8 @@ namespace IdentitySample.Controllers
 
             var model = new IndexViewModel
             {
+                Id = User.Identity.GetUserId(),
+                Token = await UserManager.GenerateUserTokenAsync("API", User.Identity.GetUserId()),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId()),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId()),

@@ -12,12 +12,14 @@ namespace LLP_API
     public class ServerAPI
     {
         private string ServerURL = string.Empty;
-        private string UserToken = string.Empty;
+        private string userId = string.Empty;
+        private string userToken = string.Empty;
 
-        public ServerAPI(string URL, string Token)
+        public ServerAPI(string URL, string UserId,string UserToken)
         {
             ServerURL = URL;
-            UserToken = Token;
+            this.userId = UserId;
+            this.userToken = UserToken;
         }
 
         public string AddBeaconInformations(List<BeaconInformation> Value)
@@ -25,7 +27,9 @@ namespace LLP_API
             string JsonString = JsonConvert.SerializeObject(new {
                 Table = "BeaconInformation",
                 Action = "Add",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -36,7 +40,9 @@ namespace LLP_API
             {
                 Table = "BeaconInformation",
                 Action = "Update",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -47,7 +53,9 @@ namespace LLP_API
             {
                 Table = "BeaconInformation",
                 Action = "Delete",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -58,7 +66,9 @@ namespace LLP_API
             {
                 Table = "LaserPointerInformation",
                 Action = "Add",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -69,7 +79,9 @@ namespace LLP_API
             {
                 Table = "LaserPointerInformation",
                 Action = "Update",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -80,7 +92,9 @@ namespace LLP_API
             {
                 Table = "LaserPointerInformation",
                 Action = "Delete",
-                Data = JsonConvert.SerializeObject(Value)
+                Data = JsonConvert.SerializeObject(Value),
+                UserId = userId,
+                UserToken = userToken
             });
             return PostDataToServer(JsonString);
         }
@@ -137,7 +151,7 @@ namespace LLP_API
             List<LaserPointerInformation> LaserPointers = null;
 
             HttpWebRequest request = WebRequest.Create(ServerURL) as HttpWebRequest;
-            request.Method = WebRequestMethods.Http.Post;
+            request.Method = WebRequestMethods.Http.Get;
             request.ContentType = "application/json";
 
             using (var response = (HttpWebResponse)request.GetResponse())
