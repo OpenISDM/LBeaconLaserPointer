@@ -17,8 +17,8 @@ namespace LBeacon.Models
         public double Latitude { get; set; }
         [Display(Name = "經度")]
         public double Longitude { get; set; }
-        [Display(Name = "位置")]
-        public string Place { get; set; }
+        [Display(Name = "樓層")]
+        public string Floor { get; set; }
     }
 
     public partial class LaserPointerInformation
@@ -36,5 +36,7 @@ namespace LBeacon.Models
         public double FaceLongitude { get; set; }
         [Display(Name = "起始面向緯度")]
         public double FaceLatitude { get; set; }
+        [Display(Name = "樓層")]
+        public string Floor { get; set; }
     }
 }

@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FaceLatitude)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Floor)
+        </th>
         <th></th>
     </tr>
 
@@ -47,9 +50,12 @@
             @Html.DisplayFor(modelItem => item.FaceLatitude)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
