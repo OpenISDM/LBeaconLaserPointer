@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
@@ -44,19 +45,26 @@ namespace LBeaconLaserPointer.Modules.Distance
             string DeviceSelector = SerialDevice.GetDeviceSelector("UART0");
             var deviceInformation = await DeviceInformation.FindAllAsync(DeviceSelector);
             byte[] rxBuffer = new byte[36];
-
-            using (SerialDevice SerialPort = await SerialDevice.FromIdAsync(deviceInformation[0].Id))
+            Debug.WriteLine(deviceInformation[0].Id);
+            
+            try
             {
-                SerialPort.WriteTimeout = TimeSpan.FromMilliseconds(1000);
-                SerialPort.ReadTimeout = TimeSpan.FromMilliseconds(1000);
-                SerialPort.BaudRate = 115200;
+                    SerialDevice SerialPort = await SerialDevice.FromIdAsync(deviceInformation[0].Id);
+                    SerialPort.WriteTimeout = TimeSpan.FromMilliseconds(1000);
+                    SerialPort.ReadTimeout = TimeSpan.FromMilliseconds(1000);
+                    SerialPort.BaudRate = 115200;
 
-                const uint maxReadLength = 36;
-                DataReader dataReader = new DataReader(SerialPort.InputStream);
+                    const uint maxReadLength = 36;
+                    DataReader dataReader = new DataReader(SerialPort.InputStream);
 
-                uint bytesToRead = await dataReader.LoadAsync(maxReadLength);
-                dataReader.ReadBytes(rxBuffer);
+                    uint bytesToRead = await dataReader.LoadAsync(maxReadLength);
+                    dataReader.ReadBytes(rxBuffer);
             }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            
 
             return rxBuffer;
         }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace LBeaconLaserPointer.Modules
 {
@@ -18,7 +20,7 @@ namespace LBeaconLaserPointer.Modules
         /// <returns></returns>
         public static double VerticalRotateAngle(GeoCoordinate CenterPoint, GeoCoordinate TargetPoint, double Hight)
         {
-            return Math.Acos(Hight/CenterPoint.GetDistanceTo(TargetPoint));
+            return Math.Acos(Hight / CenterPoint.GetDistanceTo(TargetPoint));
         }
 
         /// <summary>
@@ -51,9 +53,9 @@ namespace LBeaconLaserPointer.Modules
             double CenterToTarget = CenterPoint.GetDistanceTo(TargetPoint);
             double CenterToFace = CenterPoint.GetDistanceTo(FacePoint);
             double FaceToTarget = FacePoint.GetDistanceTo(TargetPoint);
-            
+
             return Math.Acos(
-                (CenterToTarget * CenterToTarget + CenterToFace * CenterToFace - FaceToTarget * FaceToTarget)/ 
+                (CenterToTarget * CenterToTarget + CenterToFace * CenterToFace - FaceToTarget * FaceToTarget) /
                 (2 * CenterToTarget * CenterToFace));
         }
 
@@ -79,6 +81,26 @@ namespace LBeaconLaserPointer.Modules
             Angle = Math.Asin((Xa * Yb - Xb * Ya) / c);
 
             return Angle;
+        }
+    }
+    public class Dialog
+    {
+        /// <summary>
+        /// 彈出對話窗
+        /// </summary>
+        /// <param name="title">標題</param>
+        /// <param name="content">內容</param>
+        public static async void Display(string title,string content)
+        {
+            SolidColorBrush Brush = new SolidColorBrush(Windows.UI.Colors.PaleTurquoise);
+            ContentDialog subscribeDialog = new ContentDialog
+            {
+               // Background = Brush,
+                Title = title,
+                Content = content,
+                CloseButtonText = "OK",
+            };
+            ContentDialogResult result = await subscribeDialog.ShowAsync();
         }
     }
 }

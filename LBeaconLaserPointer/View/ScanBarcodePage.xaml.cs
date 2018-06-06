@@ -232,8 +232,16 @@ namespace LBeaconLaserPointer.xaml
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string selectedLocation = (string)e.Parameter;
-            TextSelectedLocation.Text = "地點: "+ selectedLocation;
+            string receiveStr = (string)e.Parameter;
+            switch (receiveStr)
+            {
+                case "同步":
+                    TextDescription.Text = "";
+                    break;
+                default:
+                    TextDescription.Text = "地點: " + receiveStr;
+                    break;
+            }
             await PickNextMediaSourceAsync();
         }
        

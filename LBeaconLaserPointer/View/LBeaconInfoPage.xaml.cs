@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeoCoordinatePortable;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using LBeaconLaserPointer.Modules;
+using LBeaconLaserPointer.Modules.Distance;
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LBeaconLaserPointer.View
@@ -22,14 +24,22 @@ namespace LBeaconLaserPointer.View
     /// </summary>
     public sealed partial class LBeaconInfoPage : Page
     {
+        static GeoCoordinate facePoint, CenterPoint, targetPoint;
+        static string UUID;
+        string temp;
         public LBeaconInfoPage()
         {
             this.InitializeComponent();
         }
+       
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string UUID = (string)e.Parameter;
+           
+            UUID = (string)e.Parameter;
             TextLBeaconID.Text = "LBeaconID: " + UUID;
+            facePoint = new GeoCoordinate(25,121);
+            CenterPoint = new GeoCoordinate(24.5,121);
+            targetPoint = new GeoCoordinate(24,120);
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
@@ -39,20 +49,8 @@ namespace LBeaconLaserPointer.View
 
         private void BtnGoStart_Click(object sender, RoutedEventArgs e)
         {
-            //Frame.Navigate(typeof(LBeaconInfoPage));
-            DisplaySubscribeDialog();
-        }
-        private async void DisplaySubscribeDialog()
-        {
-            ContentDialog subscribeDialog = new ContentDialog
-            {
-                Title = "START",
-                Content = "Pointing",
-                CloseButtonText = "Stop",
-                PrimaryButtonText = "Subscribe",
-                SecondaryButtonText = "Try it"
-            };
-            ContentDialogResult result = await subscribeDialog.ShowAsync();
+            Dialog.Display("開始定位","定位中");
+
         }
     }
 }

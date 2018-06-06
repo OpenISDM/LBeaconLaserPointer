@@ -9,14 +9,18 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
-        <StackPanel>
-            <Grid Height="90" Background="Beige">
-                <TextBlock x:Name="TextLBeaconID" Text="LBeaconID:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
-                <Button x:Name="BtnGoBack" Content="Back" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnGoBack_Click" />
+        <StackPanel Background="Gray" >
+            <Grid Height="90" Background="slategray">
+                <TextBlock Foreground="White" x:Name="TextLBeaconID" Text="LBeaconID:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
+                <Button x:Name="BtnGoBack" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnGoBack_Click" >
+                    <Image Source="ms-appx:///View/image/Back.png" />
+                </Button>
             </Grid>
-            <TextBlock x:Name="TextLBeaconInfo" Text="經度:&#x000A;緯度:&#x000A;參考點:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
+            <TextBlock x:Name="TextLBeaconInfo" Foreground="White" Text="經度:&#x000A;緯度:&#x000A;參考點:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
         </StackPanel>
-        <Button x:Name="BtnGoStart" Content="START" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="100" Margin="30,30,30,30" Click="BtnGoStart_Click" />
+        <Button x:Name="BtnGoStart" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="80" Margin="30,30,30,30" Click="BtnGoStart_Click" >
+            <Image Source="ms-appx:///View/image/Start1.png" />
+        </Button>
     </Grid>
     
     

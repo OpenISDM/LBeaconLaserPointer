@@ -8,10 +8,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode = "Required">
 
-    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="BtnSet" Content="set" VerticalAlignment="Center" HorizontalAlignment="Left" Height="250" Width="250"  Margin="100,0,0,0" Click="BtnSet_Click"/>
-        <Button x:Name="BtnPoint" Content="point" VerticalAlignment="Center" HorizontalAlignment="Right" Height="250" Width="250"  Margin="0,0,100,0" Click="BtnPoint_Click"/>
+    <Grid Background="Gray" >
+        <Button  x:Name="BtnSet" VerticalAlignment="Center" HorizontalAlignment="Left" Height="250" Width="250"  Margin="100,0,0,0" Click="BtnSet_Click">
+            <StackPanel>
+                <Image  Source="ms-appx:///View/image/download.png" Margin="0,20,0,0" Height="160" />
+                <TextBlock Foreground="White" TextAlignment ="Center"  Text="下載資料" Margin="0,-5,0,0"  FontSize="36" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Width="207" FontWeight="Bold" Height="83"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="BtnPoint" VerticalAlignment="Center" HorizontalAlignment="Right" Height="250" Width="250"  Margin="0,0,100,0" Click="BtnPoint_Click" Visibility="Visible" FontSize="72" FontFamily="Bell MT">
+            <StackPanel>
+                <Image Source="ms-appx:///View/image/Point.png" Height="200" />
+                <TextBlock Foreground="White" TextAlignment ="Center" Text="定位" Margin="0,-15,0,0"  FontSize="36" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Width="207" FontWeight="Bold" Height="83"/>
+            </StackPanel>
+        </Button>
+
+
     </Grid>
 </Page>
