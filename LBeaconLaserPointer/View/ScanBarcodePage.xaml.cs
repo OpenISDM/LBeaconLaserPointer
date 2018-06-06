@@ -249,5 +249,18 @@ namespace LBeaconLaserPointer.xaml
         {
             if (Frame.CanGoBack) Frame.GoBack();
         }
+
+        private async void ShowContentDialog()
+        {
+            var dialog = new ContentDialog()
+            {
+                Title = "消息提示",
+                Content = "当前设置尚未保存，你确认要退出该页面吗?",
+                PrimaryButtonText = "确定",
+                SecondaryButtonText = "取消",
+            };
+            dialog.PrimaryButtonClick += (_s, _e) => { Frame.Navigate(typeof(PointPage)); };
+            await dialog.ShowAsync();
+        }
     }
 }

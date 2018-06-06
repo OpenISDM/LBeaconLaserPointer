@@ -83,24 +83,5 @@ namespace LBeaconLaserPointer.Modules
             return Angle;
         }
     }
-    public class Dialog
-    {
-        /// <summary>
-        /// 彈出對話窗
-        /// </summary>
-        /// <param name="title">標題</param>
-        /// <param name="content">內容</param>
-        public static async void Display(string title,string content)
-        {
-            SolidColorBrush Brush = new SolidColorBrush(Windows.UI.Colors.PaleTurquoise);
-            ContentDialog subscribeDialog = new ContentDialog
-            {
-               // Background = Brush,
-                Title = title,
-                Content = content,
-                CloseButtonText = "OK",
-            };
-            ContentDialogResult result = await subscribeDialog.ShowAsync();
-        }
-    }
+    
 }

@@ -11,7 +11,7 @@
 
     <StackPanel Background="Gray" >
         <Grid Height="90" Background="slategray">
-            <TextBlock Foreground="White" Text="下載" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
+            <TextBlock Foreground="White" Text="" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
             <Button x:Name="BtnGoBack" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnGoBack_Click">
                 <Image Source="ms-appx:///View/image/Back.png" />
             </Button>

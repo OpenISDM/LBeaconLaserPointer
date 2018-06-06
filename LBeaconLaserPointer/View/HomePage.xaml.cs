@@ -30,7 +30,6 @@ namespace LBeaconLaserPointer.xaml
         private GpioPin pin;
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
-            //LBeaconLaserPointer.Modules.Dialog.Display("錯誤", "請先下載資料");
             Frame.Navigate(typeof(Setpage));
             
             /*
@@ -57,7 +56,11 @@ namespace LBeaconLaserPointer.xaml
 
         private void BtnPoint_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PointPage));
+
+
+            //Frame.Navigate(typeof(PointPage));
         }
+
+
     }
 }

@@ -49,7 +49,7 @@ namespace LBeaconLaserPointer.View
 
         private void BtnGoStart_Click(object sender, RoutedEventArgs e)
         {
-            Dialog.Display("開始定位","定位中");
+           
 
         }
     }
