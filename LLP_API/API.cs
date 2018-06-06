@@ -181,38 +181,47 @@ namespace LLP_API
         /// 從Server上取得Beacon及雷射定位儀資訊
         /// </summary>
         /// <returns></returns>
-        public (List<BeaconInformation>, List<LaserPointerInformation>) GetDataFromServer()
+        public static (bool, List<BeaconInformation>, List<LaserPointerInformation>) GetDataFromServer(string URL)
         {
-            //跳過SSL檢查
-            ServicePointManager.ServerCertificateValidationCallback 
-                = new RemoteCertificateValidationCallback(ValidateServerCertificate);
-
+            bool IsDownload = false;
             List<BeaconInformation> Beacons = null;
             List<LaserPointerInformation> LaserPointers = null;
 
-            HttpWebRequest request = WebRequest.Create(ServerURL) as HttpWebRequest;
-            request.Method = WebRequestMethods.Http.Get;
-            request.ContentType = "application/json";
-
-            using (var response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if (response.StatusCode == HttpStatusCode.OK)
+                //跳過SSL檢查
+                ServicePointManager.ServerCertificateValidationCallback
+                    = new RemoteCertificateValidationCallback(ValidateServerCertificate);
+
+                HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
+                request.Method = WebRequestMethods.Http.Get;
+                request.ContentType = "application/json";
+
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    using (var stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        var retMsg = reader.ReadToEnd();
-                        retMsg = retMsg.Trim(new char[] { '"' });
-                        retMsg = retMsg.Replace(@"\", "");
-                        //TODO:反序列化
-                        dynamic JsonData = JsonConvert.DeserializeObject(retMsg);
-                        Beacons = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
-                        LaserPointers = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+                        using (var stream = response.GetResponseStream())
+                        using (var reader = new StreamReader(stream))
+                        {
+                            var retMsg = reader.ReadToEnd();
+                            retMsg = retMsg.Trim(new char[] { '"' });
+                            retMsg = retMsg.Replace(@"\", "");
+                            //TODO:反序列化
+                            dynamic JsonData = JsonConvert.DeserializeObject(retMsg);
+                            Beacons = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
+                            LaserPointers = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+                            IsDownload = true;
+                        }
                     }
                 }
             }
+            catch
+            {
 
-            return (Beacons, LaserPointers);
+            }
+
+            return (IsDownload, Beacons, LaserPointers);
         }
 
         //跳過SSL檢查
