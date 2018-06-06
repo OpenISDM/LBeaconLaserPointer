@@ -1,4 +1,5 @@
 ﻿using App3;
+using LBeaconLaserPointer.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -221,7 +222,7 @@ namespace LBeaconLaserPointer.xaml
         public async void ChangNextPageAsync(string BeaconId)
         {
             await CleanupMediaCaptureAsync();
-            Frame.Navigate(typeof(Setpage), BeaconId);
+            Frame.Navigate(typeof(LBeaconInfoPage), BeaconId);
         }
 
         protected override async void OnNavigatedFrom(NavigationEventArgs e)
@@ -231,7 +232,16 @@ namespace LBeaconLaserPointer.xaml
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string selectedLocation = (string)e.Parameter;
+            string receiveStr = (string)e.Parameter;
+            switch (receiveStr)
+            {
+                case "同步":
+                    TextDescription.Text = "";
+                    break;
+                default:
+                    TextDescription.Text = "地點: " + receiveStr;
+                    break;
+            }
             await PickNextMediaSourceAsync();
         }
        

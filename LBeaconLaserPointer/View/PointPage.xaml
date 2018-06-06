@@ -6,17 +6,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Enabled">
 
-    <StackPanel>
-        <Grid Height="90" Background="Beige">
-            <TextBlock Text="定位-選擇地點" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" />
-            <Button x:Name="BtnBack" Content="Back" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnBack_Click" />
+    <StackPanel Background="Gray" >
+        <Grid Height="90" Background="slategray">
+            <TextBlock Foreground="White"  Text="定位-選擇地點" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="36" FontWeight="Normal" FontFamily="Segoe UI" />
+            <Button  x:Name="BtnGoBack" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="90" Height="90" Click="BtnGoBack_Click">
+                <Image Source="ms-appx:///View/image/Back.png" />
+            </Button>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="390" Margin="0,0,0,0" VerticalAlignment="Top">
-            <ListBox x:Name="LbLocation" VerticalAlignment="Top" HorizontalAlignment="Center" Width="600" Height="300" Margin="15,30,0,0"/>
-            <Button x:Name="BtnGoNext" Content="NEXT" VerticalAlignment="Bottom" Width="100" Height="100" Margin="30,30,0,30" Click="BtnGoNext_Click" />
+
+            <ListView FontSize="24" Background="LightGray" x:Name="ListViewLocation" VerticalAlignment="Top" HorizontalAlignment="Center" Width="600" Height="300" Margin="15,30,0,0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                        <Setter Property="FontSize" Value="30"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <Button x:Name="BtnGoNext" VerticalAlignment="Bottom" Width="100" Height="100" Margin="30,30,0,30" Click="BtnGoNext_Click" >
+                <Image Source="ms-appx:///View/image/Next.png" />
+            </Button>
         </StackPanel>
     </StackPanel>
+    
 </Page>

@@ -27,18 +27,18 @@ namespace LBeaconLaserPointer.xaml
         public PointPage()
         {
             this.InitializeComponent();
-            LbLocation.ItemsSource = listLocation;
+            ListViewLocation.ItemsSource = listLocation;
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
             if(Frame.CanGoBack) Frame.GoBack();
         }
 
         private void BtnGoNext_Click(object sender, RoutedEventArgs e)
         {
-            if(LbLocation.SelectedItem.ToString()!=null)
-            Frame.Navigate(typeof(ScanBarcodePage), LbLocation.SelectedItem.ToString());
+            if(ListViewLocation.SelectedItem!= null)
+            Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
         }
     }
 }

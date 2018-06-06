@@ -27,9 +27,19 @@ namespace LBeaconLaserPointer.xaml
             this.InitializeComponent();
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack) Frame.GoBack();
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnSync_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ScanBarcodePage), "同步");
         }
     }
 }

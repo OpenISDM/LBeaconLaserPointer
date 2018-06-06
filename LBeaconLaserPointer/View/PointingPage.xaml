@@ -1,0 +1,23 @@
+﻿<Page Width="800" Height="480"
+    x:Class="LBeaconLaserPointer.View.PointingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LBeaconLaserPointer.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="Gray" >
+        <Grid Height="90" VerticalAlignment="Top" Background="slategray">
+            <TextBlock Foreground="White"  Text="定位中..." VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0" FontSize="36" FontWeight="Normal" FontFamily="Segoe UI" />
+        </Grid>
+        <Button x:Name="BtnCancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="200" Margin="30,30,30,30" Click="BtnCancel_Click" >
+            <StackPanel>
+                <Image Source="ms-appx:///View/image/Cancel.png" Height="140"/>
+                <TextBlock Foreground="White" TextAlignment ="Center" FontSize="36" Text="取消定位" FontWeight="Bold"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+
+</Page>
