@@ -17,7 +17,7 @@ namespace LLP_API
 
         public ServerAPI(string URL, string UserId,string UserToken)
         {
-            ServerURL = URL;
+            ServerURL = URL + "/API/BeaconInformationAPI";
             this.userId = UserId;
             this.userToken = UserToken;
         }

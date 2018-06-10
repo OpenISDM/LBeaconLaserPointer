@@ -355,6 +355,7 @@
     <Content Include="Views\LaserPointerInformations\Details.cshtml" />
     <Content Include="Views\LaserPointerInformations\Edit.cshtml" />
     <Content Include="Views\LaserPointerInformations\Index.cshtml" />
+    <Content Include="Views\Manage\ServerInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

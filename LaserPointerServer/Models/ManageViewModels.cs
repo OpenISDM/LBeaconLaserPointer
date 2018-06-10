@@ -87,4 +87,13 @@ namespace IdentitySample.Models
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
 
+    public class ServerInformation
+    {
+        [Required]
+        [Display(Name = "此網站網址")]
+        public string URL { get; set; }
+        [Required]
+        [Display(Name = "地點名稱")]
+        public string Place { get; set; }
+    }
 }
