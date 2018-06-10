@@ -19,6 +19,7 @@ namespace LBeacon.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // Get: /api/BeaconInformationAPI
         public string Get()
         {
             List<BeaconInformation> beacons = db.BeaconInformations.ToList();

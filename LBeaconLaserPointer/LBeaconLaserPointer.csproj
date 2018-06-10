@@ -105,11 +105,17 @@
     <Compile Include="View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LBeaconInfoPage.xaml.cs">
+      <DependentUpon>LBeaconInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Motor\MotorController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\PointingPage.xaml.cs">
+      <DependentUpon>PointingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PointPage.xaml.cs">
       <DependentUpon>PointPage.xaml</DependentUpon>
     </Compile>
@@ -135,7 +141,16 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="View\image\Back.png" />
+    <Content Include="View\image\Cancel.png" />
+    <Content Include="View\image\clear.png" />
+    <Content Include="View\image\download.png" />
+    <Content Include="View\image\Next.png" />
+    <Content Include="View\image\point.png" />
     <Content Include="View\image\set.png" />
+    <Content Include="View\image\start.png" />
+    <Content Include="View\image\Start1.png" />
+    <Content Include="View\image\sync.png" />
     <Content Include="View\image\testImgae.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +162,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LBeaconInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PointingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PointPage.xaml">
       <SubType>Designer</SubType>

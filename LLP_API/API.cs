@@ -15,6 +15,12 @@ namespace LLP_API
         private string userId = string.Empty;
         private string userToken = string.Empty;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="URL">Web API URL</param>
+        /// <param name="UserId">使用者 Id</param>
+        /// <param name="UserToken">使用者 Token</param>
         public ServerAPI(string URL, string UserId,string UserToken)
         {
             ServerURL = URL + "/API/BeaconInformationAPI";
@@ -22,6 +28,11 @@ namespace LLP_API
             this.userToken = UserToken;
         }
 
+        /// <summary>
+        /// 批量新增Beacon資訊到Server
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string AddBeaconInformations(List<BeaconInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new {
@@ -34,6 +45,11 @@ namespace LLP_API
             return PostDataToServer(JsonString);
         }
 
+        /// <summary>
+        /// 批量更新Beacon資訊
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string UpdateBeaconInformations(List<BeaconInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new
@@ -47,6 +63,11 @@ namespace LLP_API
             return PostDataToServer(JsonString);
         }
 
+        /// <summary>
+        /// 批量刪除Beacon資訊
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string DeleteBeaconInformations(List<BeaconInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new
@@ -60,6 +81,11 @@ namespace LLP_API
             return PostDataToServer(JsonString);
         }
 
+        /// <summary>
+        /// 批量新增雷射定位儀資訊
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string AddLaserPointerInformations(List<LaserPointerInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new
@@ -73,6 +99,11 @@ namespace LLP_API
             return PostDataToServer(JsonString);
         }
 
+        /// <summary>
+        /// 批量更新雷射定位儀資訊
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string UpdateLaserPointerInformations(List<LaserPointerInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new
@@ -86,6 +117,11 @@ namespace LLP_API
             return PostDataToServer(JsonString);
         }
 
+        /// <summary>
+        /// 批量刪除雷射定位儀資訊
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string DeleteLaserPointerInformations(List<LaserPointerInformation> Value)
         {
             string JsonString = JsonConvert.SerializeObject(new
@@ -141,37 +177,51 @@ namespace LLP_API
             }
         }
 
-        public (List<BeaconInformation>, List<LaserPointerInformation>) GetDataFromServer()
+        /// <summary>
+        /// 從Server上取得Beacon及雷射定位儀資訊
+        /// </summary>
+        /// <returns></returns>
+        public static (bool, List<BeaconInformation>, List<LaserPointerInformation>) GetDataFromServer(string URL)
         {
-            //跳過SSL檢查
-            ServicePointManager.ServerCertificateValidationCallback 
-                = new RemoteCertificateValidationCallback(ValidateServerCertificate);
-
+            bool IsDownload = false;
             List<BeaconInformation> Beacons = null;
             List<LaserPointerInformation> LaserPointers = null;
 
-            HttpWebRequest request = WebRequest.Create(ServerURL) as HttpWebRequest;
-            request.Method = WebRequestMethods.Http.Get;
-            request.ContentType = "application/json";
-
-            using (var response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    using (var stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var temp = reader.ReadToEnd();
+                //跳過SSL檢查
+                ServicePointManager.ServerCertificateValidationCallback
+                    = new RemoteCertificateValidationCallback(ValidateServerCertificate);
 
-                        //TODO:反序列化
-                        dynamic JsonData = JsonConvert.DeserializeObject(temp);
-                        Beacons = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
-                        LaserPointers = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+                HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
+                request.Method = WebRequestMethods.Http.Get;
+                request.ContentType = "application/json";
+
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (var stream = response.GetResponseStream())
+                        using (var reader = new StreamReader(stream))
+                        {
+                            var retMsg = reader.ReadToEnd();
+                            retMsg = retMsg.Trim(new char[] { '"' });
+                            retMsg = retMsg.Replace(@"\", "");
+                            //TODO:反序列化
+                            dynamic JsonData = JsonConvert.DeserializeObject(retMsg);
+                            Beacons = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
+                            LaserPointers = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+                            IsDownload = true;
+                        }
                     }
                 }
             }
+            catch
+            {
 
-            return (Beacons, LaserPointers);
+            }
+
+            return (IsDownload, Beacons, LaserPointers);
         }
 
         //跳過SSL檢查

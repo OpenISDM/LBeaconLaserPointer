@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Gpio;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,12 +22,18 @@ namespace LBeaconLaserPointer
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private GpioPin pin;
         public MainPage()
         {
             this.InitializeComponent();
+            //var gpio = GpioController.GetDefault();
+            //pin = gpio.OpenPin(26);
+            //pin.Write(GpioPinValue.High);
+            //pin.SetDriveMode(GpioPinDriveMode.Output);
             MainFrame.Navigate(typeof(xaml.HomePage));
         }
-         
+
+
 
     }
 }

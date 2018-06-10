@@ -52,5 +52,22 @@ namespace LBeaconLaserPointer.Modules.Utilities
                 return string.Empty;
             }
         }
+
+        public static bool CleanAllFile()
+        {
+            try
+            {
+                if (!Directory.Exists(FolderName))
+                    Directory.CreateDirectory(FolderName);
+
+                File.Delete(FolderName + "*");
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

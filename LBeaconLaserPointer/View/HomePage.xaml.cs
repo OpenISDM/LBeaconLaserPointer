@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using Windows.Devices.Gpio;
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LBeaconLaserPointer.xaml
@@ -27,10 +27,32 @@ namespace LBeaconLaserPointer.xaml
             this.InitializeComponent();
         }
 
-
+        private GpioPin pin;
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
+            //LBeaconLaserPointer.Modules.Dialog.Display("錯誤", "請先下載資料");
             Frame.Navigate(typeof(Setpage));
+            
+            /*
+            var gpio = GpioController.GetDefault();
+            pin = gpio.OpenPin(26);
+            pin.Write(GpioPinValue.High);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+
+            pin = gpio.OpenPin(25);
+            pin.Write(GpioPinValue.High);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+            pin = gpio.OpenPin(17);
+            pin.Write(GpioPinValue.High);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+            pin = gpio.OpenPin(27);
+            pin.Write(GpioPinValue.Low);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+            pin = gpio.OpenPin(22);
+            pin.Write(GpioPinValue.High);
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+            */
+
         }
 
         private void BtnPoint_Click(object sender, RoutedEventArgs e)

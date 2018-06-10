@@ -11,8 +11,8 @@ namespace LBeacon.Models
         [Key]
         [Required]
         public Guid Id { get; set; }
-        [Display(Name = "Beacon名稱")]
-        public string Name { get; set; }
+        [Display(Name = "位置名稱")]
+        public string Position { get; set; }
         [Display(Name = "緯度")]
         public double Latitude { get; set; }
         [Display(Name = "經度")]
@@ -27,7 +27,7 @@ namespace LBeacon.Models
         [Required]
         public Guid Id { get; set; }
         [Display(Name = "位置名稱")]
-        public string Name { get; set; }
+        public string Position { get; set; }
         [Display(Name = "經度")]
         public double Longitude { get; set; }
         [Display(Name = "緯度")]
