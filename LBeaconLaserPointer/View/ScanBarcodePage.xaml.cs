@@ -34,6 +34,8 @@ namespace LBeaconLaserPointer.xaml
         private MediaCapture _mediaCapture;
         private int _groupSelectionIndex;
         private string receiveStr;
+        private bool firstOpen;
+        private object firstOpenLock = new object();
 
         private List<MediaFrameReader> _sourceReaders = new List<MediaFrameReader>();
         private IReadOnlyDictionary<MediaFrameSourceKind, FrameRenderer> _frameRenderers;
@@ -225,37 +227,50 @@ namespace LBeaconLaserPointer.xaml
 
         public async void NextStepAsync(string Value)
         {
-            switch (receiveStr)
-            {
-                case "同步":
-                    await CleanupMediaCaptureAsync();
-                    bool IsSave = false;
-                    string[] Data = Value.Split("},{");
-                    var ServerData = ServerAPI.GetDataFromServer(Data[0]);
-                    if (ServerData.Item1)
-                    {
-                        string BLJson = JsonConvert.SerializeObject(new
+            bool functionFirstIn = false;
+            lock(firstOpenLock)
+                if (firstOpen)
+                {
+                    firstOpen = false;
+                    functionFirstIn = true;
+                }
+
+            if (functionFirstIn)
+                switch (receiveStr)
+                {
+                    case "同步":
+                        await CleanupMediaCaptureAsync();
+                        bool IsSave = false;
+                        string[] Data = Value.Split("},{");
+                        var ServerData = ServerAPI.GetDataFromServer(Data[0]);
+                        if (ServerData.Item1)
                         {
-                            BeaconInformation = JsonConvert.SerializeObject(ServerData.Item1),
-                            LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item2)
-                        });
-                        if (LocalStorage.WriteToFile(Data[1], BLJson))
-                        {
-                            IsSave = true;
+                            string BLJson = JsonConvert.SerializeObject(new
+                            {
+                                BeaconInformation = JsonConvert.SerializeObject(ServerData.Item1),
+                                LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item2)
+                            });
+                            if (LocalStorage.WriteToFile(Data[1], BLJson))
+                            {
+                                IsSave = true;
+                            }
                         }
-                    }
 
-                    if (IsSave)
-                        ShowContentDialog(true);
-                    else
-                        ShowContentDialog(false);
+                        if (IsSave)
+                            ShowContentDialog(true);
+                        else
+                        {
+                            lock (firstOpenLock)
+                                firstOpen = true;
+                            ShowContentDialog(false);
+                        }
 
-                    break;
-                default:
-                    await CleanupMediaCaptureAsync();
-                    Frame.Navigate(typeof(LBeaconInfoPage), Value);
-                    break;
-            }
+                        break;
+                    default:
+                        await CleanupMediaCaptureAsync();
+                        Frame.Navigate(typeof(LBeaconInfoPage), Value);
+                        break;
+                }
         }
 
         private async void ShowContentDialog(bool IsDownload)
@@ -285,6 +300,8 @@ namespace LBeaconLaserPointer.xaml
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            lock (firstOpenLock)
+                firstOpen = true;
             receiveStr = (string)e.Parameter;
             switch (receiveStr)
             {
