@@ -217,10 +217,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806111352177_AddEName.cs" />
-    <Compile Include="Migrations\201806111352177_AddEName.Designer.cs">
-      <DependentUpon>201806111352177_AddEName.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -362,9 +358,6 @@
     <Content Include="Views\Manage\ServerInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806111352177_AddEName.resx">
-      <DependentUpon>201806111352177_AddEName.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
