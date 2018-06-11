@@ -20,8 +20,8 @@ namespace LBeacon.Class
             {
                 ErrorCorrection = ErrorCorrectionLevel.H,
                 Margin = 0,
-                Width = 300,
-                Height = 300,
+                Width = 150,
+                Height = 150,
                 CharacterSet = "UTF-8"
             }
         };
@@ -34,8 +34,8 @@ namespace LBeacon.Class
                 {
                     int middleImgW = Math.Min((int)(QRCode.Width / 4), Logo.Width);
                     int middleImgH = Math.Min((int)(QRCode.Height / 4), Logo.Height);
-                    int middleImgL = Convert.ToInt16((Logo.Width - middleImgW) / 2.2);
-                    int middleImgT = Convert.ToInt16((Logo.Height - middleImgH) / 2.8);
+                    int middleImgL = Convert.ToInt16((Logo.Width - middleImgW) / 5);
+                    int middleImgT = Convert.ToInt16((Logo.Height - middleImgH) / 6.5);
 
                     Bitmap LogoQRCode = new Bitmap(QRCode.Width, QRCode.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                     using (Graphics g = Graphics.FromImage(LogoQRCode))

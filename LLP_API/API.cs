@@ -23,7 +23,7 @@ namespace LLP_API
         /// <param name="UserToken">使用者 Token</param>
         public ServerAPI(string URL, string UserId,string UserToken)
         {
-            ServerURL = URL;
+            ServerURL = URL + "/API/BeaconInformationAPI";
             this.userId = UserId;
             this.userToken = UserToken;
         }
