@@ -2,16 +2,23 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using System.IO;
+using System.Drawing;
+using LBeacon.Class;
 
 namespace IdentitySample.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private string configFile = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Information.txt";
+
         public ManageController()
         {
         }
@@ -49,6 +56,8 @@ namespace IdentitySample.Controllers
 
             var model = new IndexViewModel
             {
+                Id = User.Identity.GetUserId(),
+                Token = HttpUtility.UrlEncode(await UserManager.GenerateUserTokenAsync("API", User.Identity.GetUserId())),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId()),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId()),
@@ -329,6 +338,49 @@ namespace IdentitySample.Controllers
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+        }
+
+        public async Task<ActionResult> ServerInformation()
+        {
+            ServerInformation Information = new ServerInformation();
+
+            try
+            {
+                using (StreamReader streamReader = new StreamReader(configFile))
+                {
+                    string FileData = await streamReader.ReadToEndAsync();
+                    Information = JsonConvert.DeserializeObject<ServerInformation>(FileData, new JsonSerializerSettings {
+                        NullValueHandling = NullValueHandling.Include,
+                        MissingMemberHandling = MissingMemberHandling.Ignore
+                    });
+                }
+            }
+            catch
+            {
+                Information = new ServerInformation();
+            }
+
+            return View(Information);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ServerInformation(ServerInformation Information)
+        {
+            string json = JsonConvert.SerializeObject(Information);
+            using (StreamWriter streamWriter = new StreamWriter(configFile,false))
+            {
+                await streamWriter.WriteAsync(json);
+            }
+
+            return View(Information);
+        }
+
+        public ActionResult Image(ServerInformation serverInformation)
+        {
+            Bitmap Image = Barcode.QRcode(serverInformation.URL + "}.{" + serverInformation.Place);
+            var bitmapBytes = Barcode.BitmapToBytes(Image);
+            return File(bitmapBytes, "image/jpeg");
         }
 
         #region Helpers

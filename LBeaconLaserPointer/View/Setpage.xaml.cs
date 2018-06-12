@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LBeaconLaserPointer.Modules.Utilities;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +35,7 @@ namespace LBeaconLaserPointer.xaml
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-
+            LocalStorage.CleanAllFile();
         }
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)

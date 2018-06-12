@@ -86,7 +86,7 @@ namespace App3
                             var result = reader.Decode(img);
 
                             if (result != null)
-                                _Page.ChangNextPageAsync(result.Text);
+                                _Page.NextStepAsync(result.Text);
                             //_TextBox.Text = result.Text;
 
 

@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LBeaconLaserPointer.Modules.Utilities;
+using LLP_API;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,12 +24,13 @@ namespace LBeaconLaserPointer.xaml
     /// </summary>
     public sealed partial class PointPage : Page
     {
-        List<string> listLocation = new List<string>() {"test0", "test1", "test2", "test3", "test4", "test5", "test6", "test7" };
+        public static List<BeaconInformation> BeaconInformations = new List<BeaconInformation>();
+        public static List<LaserPointerInformation> LaserPointerInformations = new List<LaserPointerInformation>();
         
         public PointPage()
         {
             this.InitializeComponent();
-            ListViewLocation.ItemsSource = listLocation;
+            ListViewLocation.ItemsSource = LocalStorage.AllFileName();
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
@@ -37,8 +40,11 @@ namespace LBeaconLaserPointer.xaml
 
         private void BtnGoNext_Click(object sender, RoutedEventArgs e)
         {
-            if(ListViewLocation.SelectedItem!= null)
-            Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
+            if(ListViewLocation.SelectedItem != null)
+            {
+                string JsonString = LocalStorage.ReadOnFile(ListViewLocation.SelectedItem.ToString());
+                Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
+            }
         }
     }
 }

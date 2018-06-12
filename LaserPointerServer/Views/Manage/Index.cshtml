@@ -8,6 +8,12 @@
 <div class="row">
     <div class="col-md-8">
         <p>
+            Id: @(Model.Id)
+        </p>
+        <p class = "breakword">
+            API Token: @(Model.Token)
+        </p>
+        <p>
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword")
@@ -40,7 +46,7 @@
             <form method="post" action="/Manage/DisableTFA">
                 <p>
                     Two factor is currently enabled:
-                    <input type="submit" value="Disable" class="btn btn-default"/>
+                    <input type="submit" value="Disable" class="btn btn-default" />
                 </p>
             </form>
         }
@@ -49,7 +55,7 @@
             <form method="post" action="/Manage/EnableTFA">
                 <p>
                     Two factor is currently disabled:
-                    <input type="submit" value="Enable" class="btn btn-default"/>
+                    <input type="submit" value="Enable" class="btn btn-default" />
                 </p>
             </form>
         }
@@ -67,9 +73,39 @@
             <form method="post" action="/Manage/RememberBrowser">
                 <p>
                     Browser is curently not remembered for two factor:
-                    <input type="submit" value="Remember Browser" class="btn btn-default"/>
+                    <input type="submit" value="Remember Browser" class="btn btn-default" />
                 </p>
             </form>
         }
     </div>
 </div>
+
+@section Style{
+<style>
+    .word {
+        background: #E4FFE9;
+        width: 250px;
+        margin: 50px auto;
+        padding: 20px;
+        font-family: "microsoft yahei";
+    }
+    /* 强制不换行 */
+    .nowrap {
+        white-space: nowrap;
+    }
+    /* 允许单词内断句，首先会尝试挪到下一行，看看下一行的宽度够不够，
+            不够的话就进行单词内的断句 */
+    .breakword {
+        word-wrap: break-word;
+    }
+    /* 断句时，不会把长单词挪到下一行，而是直接进行单词内的断句 */
+    .breakAll {
+        word-break: break-all;
+    }
+    /* 超出部分显示省略号 */
+    .ellipsis {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+}
