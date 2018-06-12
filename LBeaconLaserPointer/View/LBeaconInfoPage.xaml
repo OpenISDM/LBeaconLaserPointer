@@ -16,7 +16,9 @@
                     <Image Source="ms-appx:///View/image/Back.png" />
                 </Button>
             </Grid>
-            <TextBlock x:Name="TextLBeaconInfo" Foreground="White" Text="經度:&#x000A;緯度:&#x000A;參考點:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
+            <TextBlock x:Name="longitude" Foreground="White" Text="經度:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
+            <TextBlock x:Name="latitude" Foreground="White" Text="緯度:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
+            <TextBlock x:Name="ReferencePoint" Foreground="White" Text="參考點:"   HorizontalAlignment="Left" Margin="30,30,0,0" FontSize="36" />
         </StackPanel>
         <Button x:Name="BtnGoStart" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="80" Margin="30,30,30,30" Click="BtnGoStart_Click" >
             <Image Source="ms-appx:///View/image/Start1.png" />

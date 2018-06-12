@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LBeaconLaserPointer.Modules;
 using LBeaconLaserPointer.Modules.Distance;
+using LLP_API;
+using LBeaconLaserPointer.xaml;
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LBeaconLaserPointer.View
@@ -26,7 +28,7 @@ namespace LBeaconLaserPointer.View
     {
         static GeoCoordinate facePoint, CenterPoint, targetPoint;
         static string UUID;
-        string temp;
+
         public LBeaconInfoPage()
         {
             this.InitializeComponent();
@@ -37,9 +39,16 @@ namespace LBeaconLaserPointer.View
            
             UUID = (string)e.Parameter;
             TextLBeaconID.Text = "LBeaconID: " + UUID;
-            facePoint = new GeoCoordinate(25,121);
-            CenterPoint = new GeoCoordinate(24.5,121);
-            targetPoint = new GeoCoordinate(24,120);
+            BeaconInformation BI = PointPage.BeaconInformations.Where(c => c.Id == Guid.Parse(UUID)).First();
+            LaserPointerInformation LPI = PointPage.LaserPointerInformations.Where(c => c.Id == BI.LaserPointerInformationId).First();
+
+            latitude.Text = BI.Latitude.ToString();
+            longitude.Text = BI.Longitude.ToString();
+            ReferencePoint.Text = LPI.Position;
+
+            facePoint = new GeoCoordinate(LPI.FaceLatitude,LPI.FaceLongitude);
+            CenterPoint = new GeoCoordinate(LPI.Latitude,LPI.Longitude);
+            targetPoint = new GeoCoordinate(BI.Latitude,BI.Longitude);
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
