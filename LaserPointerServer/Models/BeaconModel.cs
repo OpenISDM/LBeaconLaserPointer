@@ -19,6 +19,7 @@ namespace LBeacon.Models
         public double Longitude { get; set; }
         [Display(Name = "樓層")]
         public string Floor { get; set; }
+        public Guid LaserPointerInformationId { get; set; }
     }
 
     public partial class LaserPointerInformation

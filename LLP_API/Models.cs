@@ -11,6 +11,7 @@ namespace LLP_API
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Floor { get; set; }
+        public Guid LaserPointerInformationId { get; set; }
     }
 
     public partial class LaserPointerInformation
