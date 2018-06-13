@@ -6,6 +6,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace LLP_API
 {
@@ -183,6 +184,7 @@ namespace LLP_API
         /// <returns></returns>
         public static (bool, List<BeaconInformation>, List<LaserPointerInformation>) GetDataFromServer(string URL)
         {
+            URL += "/API/BeaconInformationAPI";
             bool IsDownload = false;
             List<BeaconInformation> Beacons = null;
             List<LaserPointerInformation> LaserPointers = null;
@@ -208,7 +210,7 @@ namespace LLP_API
                             retMsg = retMsg.Trim(new char[] { '"' });
                             retMsg = retMsg.Replace(@"\", "");
                             //TODO:反序列化
-                            dynamic JsonData = JsonConvert.DeserializeObject(retMsg);
+                            JObject JsonData = JsonConvert.DeserializeObject<JObject>(retMsg);
                             Beacons = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
                             LaserPointers = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
                             IsDownload = true;
