@@ -239,9 +239,8 @@ namespace LBeaconLaserPointer.xaml
                 switch (receiveStr)
                 {
                     case "同步":
-                        await CleanupMediaCaptureAsync();
                         bool IsSave = false;
-                        string[] Data = Value.Split("},{");
+                        string[] Data = Value.Split("}.{");
                         var ServerData = ServerAPI.GetDataFromServer(Data[0]);
                         if (ServerData.Item1)
                         {
@@ -250,14 +249,17 @@ namespace LBeaconLaserPointer.xaml
                                 BeaconInformation = JsonConvert.SerializeObject(ServerData.Item1),
                                 LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item2)
                             });
-                            if (LocalStorage.WriteToFile(Data[1], BLJson))
+                            if (await LocalStorage.WriteToFileAsync(Data[1], BLJson))
                             {
                                 IsSave = true;
                             }
                         }
 
                         if (IsSave)
+                        {
+                            await CleanupMediaCaptureAsync();
                             ShowContentDialog(true);
+                        }
                         else
                         {
                             lock (firstOpenLock)

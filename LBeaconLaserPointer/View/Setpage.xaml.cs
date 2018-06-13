@@ -33,9 +33,9 @@ namespace LBeaconLaserPointer.xaml
             if (Frame.CanGoBack) Frame.GoBack();
         }
 
-        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        private async void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            LocalStorage.CleanAllFile();
+            await LocalStorage.CleanAllFileAsync();
         }
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)

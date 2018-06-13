@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LBeaconLaserPointer.Modules.Utilities;
 using LLP_API;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,7 +33,12 @@ namespace LBeaconLaserPointer.xaml
         public PointPage()
         {
             this.InitializeComponent();
-            ListViewLocation.ItemsSource = LocalStorage.AllFileName();
+            LoadItems();
+        }
+
+        private async void LoadItems()
+        {
+            ListViewLocation.ItemsSource = await LocalStorage.AllFileNameAsync();
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
@@ -38,11 +46,16 @@ namespace LBeaconLaserPointer.xaml
             if(Frame.CanGoBack) Frame.GoBack();
         }
 
-        private void BtnGoNext_Click(object sender, RoutedEventArgs e)
+        private async void BtnGoNext_Click(object sender, RoutedEventArgs e)
         {
             if(ListViewLocation.SelectedItem != null)
             {
-                string JsonString = LocalStorage.ReadOnFile(ListViewLocation.SelectedItem.ToString());
+                string JsonString = await LocalStorage.ReadOnFileAsync(ListViewLocation.SelectedItem.ToString());
+                JObject JsonData = JsonConvert.DeserializeObject<JObject>(JsonString);
+
+                BeaconInformations = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
+                LaserPointerInformations = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+
                 Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
             }
         }
