@@ -12,6 +12,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LBeaconLaserPointer.Modules.Utilities;
+using LLP_API;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,12 +27,18 @@ namespace LBeaconLaserPointer.xaml
     /// </summary>
     public sealed partial class PointPage : Page
     {
-        List<string> listLocation = new List<string>() {"test0", "test1", "test2", "test3", "test4", "test5", "test6", "test7" };
+        public static List<BeaconInformation> BeaconInformations = new List<BeaconInformation>();
+        public static List<LaserPointerInformation> LaserPointerInformations = new List<LaserPointerInformation>();
         
         public PointPage()
         {
             this.InitializeComponent();
-            ListViewLocation.ItemsSource = listLocation;
+            LoadItems();
+        }
+
+        private async void LoadItems()
+        {
+            ListViewLocation.ItemsSource = await LocalStorage.AllFileNameAsync();
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
@@ -35,10 +46,18 @@ namespace LBeaconLaserPointer.xaml
             if(Frame.CanGoBack) Frame.GoBack();
         }
 
-        private void BtnGoNext_Click(object sender, RoutedEventArgs e)
+        private async void BtnGoNext_Click(object sender, RoutedEventArgs e)
         {
-            if(ListViewLocation.SelectedItem!= null)
-            Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
+            if(ListViewLocation.SelectedItem != null)
+            {
+                string JsonString = await LocalStorage.ReadOnFileAsync(ListViewLocation.SelectedItem.ToString());
+                JObject JsonData = JsonConvert.DeserializeObject<JObject>(JsonString);
+
+                BeaconInformations = JsonConvert.DeserializeObject<List<BeaconInformation>>(JsonData["BeaconInformation"].ToString());
+                LaserPointerInformations = JsonConvert.DeserializeObject<List<LaserPointerInformation>>(JsonData["LaserPointerInformation"].ToString());
+
+                Frame.Navigate(typeof(ScanBarcodePage), ListViewLocation.SelectedItem.ToString());
+            }
         }
     }
 }

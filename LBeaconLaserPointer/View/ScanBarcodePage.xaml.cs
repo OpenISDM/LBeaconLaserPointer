@@ -18,6 +18,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LLP_API;
+using LBeaconLaserPointer.Modules.Utilities;
+using Newtonsoft.Json;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,6 +33,9 @@ namespace LBeaconLaserPointer.xaml
     {
         private MediaCapture _mediaCapture;
         private int _groupSelectionIndex;
+        private string receiveStr;
+        private bool firstOpen;
+        private object firstOpenLock = new object();
 
         private List<MediaFrameReader> _sourceReaders = new List<MediaFrameReader>();
         private IReadOnlyDictionary<MediaFrameSourceKind, FrameRenderer> _frameRenderers;
@@ -219,10 +225,74 @@ namespace LBeaconLaserPointer.xaml
             }
         }
 
-        public async void ChangNextPageAsync(string BeaconId)
+        public async void NextStepAsync(string Value)
         {
-            await CleanupMediaCaptureAsync();
-            Frame.Navigate(typeof(LBeaconInfoPage), BeaconId);
+            bool functionFirstIn = false;
+            lock(firstOpenLock)
+                if (firstOpen)
+                {
+                    firstOpen = false;
+                    functionFirstIn = true;
+                }
+
+            if (functionFirstIn)
+                switch (receiveStr)
+                {
+                    case "同步":
+                        bool IsSave = false;
+                        string[] Data = Value.Split("}.{");
+                        var ServerData = ServerAPI.GetDataFromServer(Data[0]);
+                        if (ServerData.Item1)
+                        {
+                            string BLJson = JsonConvert.SerializeObject(new
+                            {
+                                BeaconInformation = JsonConvert.SerializeObject(ServerData.Item1),
+                                LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item2)
+                            });
+                            if (await LocalStorage.WriteToFileAsync(Data[1], BLJson))
+                            {
+                                IsSave = true;
+                            }
+                        }
+
+                        if (IsSave)
+                        {
+                            await CleanupMediaCaptureAsync();
+                            ShowContentDialog(true);
+                        }
+                        else
+                        {
+                            lock (firstOpenLock)
+                                firstOpen = true;
+                            ShowContentDialog(false);
+                        }
+
+                        break;
+                    default:
+                        await CleanupMediaCaptureAsync();
+                        Frame.Navigate(typeof(LBeaconInfoPage), Value);
+                        break;
+                }
+        }
+
+        private async void ShowContentDialog(bool IsDownload)
+        {
+            ContentDialog dialog = new ContentDialog();
+            if (IsDownload)
+            {
+                dialog.Title = "同步結果";
+                dialog.Content = "同步成功";
+                dialog.PrimaryButtonText = "確定";
+                dialog.PrimaryButtonClick += (_s, _e) => { Frame.Navigate(typeof(PointPage)); };
+            }
+            else
+            {
+                dialog.Title = "同步結果";
+                dialog.Content = "同步失敗";
+                dialog.PrimaryButtonText = "確定";
+            }
+            
+            await dialog.ShowAsync();
         }
 
         protected override async void OnNavigatedFrom(NavigationEventArgs e)
@@ -232,7 +302,9 @@ namespace LBeaconLaserPointer.xaml
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string receiveStr = (string)e.Parameter;
+            lock (firstOpenLock)
+                firstOpen = true;
+            receiveStr = (string)e.Parameter;
             switch (receiveStr)
             {
                 case "同步":

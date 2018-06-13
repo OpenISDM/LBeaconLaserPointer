@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-TW</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -100,6 +100,7 @@
     <Compile Include="Modules\Distance\DistanceSensor.cs" />
     <Compile Include="Modules\Utilities\FrameRenderer.cs" />
     <Compile Include="Modules\Utilities\FrameSourceViewModels.cs" />
+    <Compile Include="Modules\Utilities\LocalStorage.cs" />
     <Compile Include="Modules\Utilities\Utility.cs" />
     <Compile Include="View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -198,6 +199,10 @@
     <ProjectReference Include="..\GeoCoordinatePortable\GeoCoordinatePortable.csproj">
       <Project>{3f8d76e7-1af6-40f5-960f-13c4dfa80935}</Project>
       <Name>GeoCoordinatePortable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLP_API\LLP_API.csproj">
+      <Project>{744773fc-d634-4598-bf64-e1ca07170f34}</Project>
+      <Name>LLP_API</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("style", required: false)
 
 </head>
 <body>
@@ -21,14 +22,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Beacon資訊", "Index", "BeaconInformations")</li>
                     <li>@Html.ActionLink("定位儀資訊", "Index", "LaserPointerInformations")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
+                        <li>@Html.ActionLink("Server Information", "ServerInformation", "Manage")</li>
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }

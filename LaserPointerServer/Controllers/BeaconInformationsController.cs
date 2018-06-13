@@ -50,7 +50,7 @@ namespace LBeacon.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Latitude,Longitude,Place")] BeaconInformation beaconInformation)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Position,Latitude,Longitude,Floor,LaserPointerInformationId")] BeaconInformation beaconInformation)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace LBeacon.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Latitude,Longitude,Place")] BeaconInformation beaconInformation)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Position,Latitude,Longitude,Floor,LaserPointerInformationId")] BeaconInformation beaconInformation)
         {
             if (ModelState.IsValid)
             {
