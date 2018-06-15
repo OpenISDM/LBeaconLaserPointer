@@ -14,17 +14,20 @@ using LBeacon.Class;
 
 namespace LBeacon.Controllers
 {
+    [Authorize]
     public class BeaconInformationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BeaconInformations
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             return View(await db.BeaconInformations.ToListAsync());
         }
 
         // GET: BeaconInformations/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -120,6 +123,7 @@ namespace LBeacon.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public ActionResult Image(Guid id)
         {
             Bitmap Image = Barcode.QRcode(id.ToString());

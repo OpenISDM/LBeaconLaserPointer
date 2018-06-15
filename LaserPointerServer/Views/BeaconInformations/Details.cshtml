@@ -56,7 +56,15 @@
     <h2>QRCode</h2>
     <img src="@Url.Action("Image",new {id= Model.Id})" alt="qr code" />
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+else
+{
     @Html.ActionLink("Back to List", "Index")
-</p>
+}
+

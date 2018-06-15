@@ -12,17 +12,20 @@ using LBeacon.Models;
 
 namespace LBeacon.Controllers
 {
+    [Authorize]
     public class LaserPointerInformationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: LaserPointerInformations
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             return View(await db.LaserPointerInformations.ToListAsync());
         }
 
         // GET: LaserPointerInformations/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
