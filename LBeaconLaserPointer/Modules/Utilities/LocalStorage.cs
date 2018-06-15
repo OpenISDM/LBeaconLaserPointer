@@ -1,37 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 using Windows.Storage;
+using System;
+using System.Threading.Tasks;
 
 namespace LBeaconLaserPointer.Modules.Utilities
 {
     public class LocalStorage
     {
         private static readonly string FolderName = 
-            ApplicationData.Current.LocalFolder + @"\Storage\";
+            ApplicationData.Current.LocalFolder.Path + @"\Storage\";
 
-        public static List<string> AllFileName()
+        public static async Task<List<string>> AllFileNameAsync()
         {
-            List<string> FileNames = new List<string>();
-            if (Directory.Exists(FolderName))
-                FileNames.AddRange(Directory.EnumerateFiles(FolderName).ToList());
+            List<StorageFile> FileNames = new List<StorageFile>();
+            if (await ApplicationData.Current.LocalFolder.TryGetItemAsync("Storage") != null)
+            {
+                StorageFolder Folder =await StorageFolder.GetFolderFromPathAsync(FolderName);
+                FileNames.AddRange(await Folder.GetFilesAsync());
+            }
             else
-                Directory.CreateDirectory(FolderName);
+                await ApplicationData.Current.LocalFolder.CreateFolderAsync("Storage");
 
-            return FileNames;
+            return FileNames.Select(c => c.Name).ToList();
         }
 
-        public static bool WriteToFile(string FileName, string Data)
+        public static async Task<bool> WriteToFileAsync(string FileName, string Data)
         {
             try
             {
-                if (!Directory.Exists(FolderName))
-                    Directory.CreateDirectory(FolderName);
-
-                using (StreamWriter sw = new StreamWriter(FolderName+FileName))
-                {
-                    sw.WriteLine(Data);
-                }
+                if (await ApplicationData.Current.LocalFolder.TryGetItemAsync("Storage") == null)
+                    await ApplicationData.Current.LocalFolder.CreateFolderAsync("Storage");
+                StorageFolder Folder = await StorageFolder.GetFolderFromPathAsync(FolderName);
+                StorageFile File = await Folder.CreateFileAsync(FileName, CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(File, Data);
                 return true;
             }
             catch
@@ -40,12 +42,12 @@ namespace LBeaconLaserPointer.Modules.Utilities
             }
         }
 
-        public static string ReadOnFile(string FileName)
+        public static async Task<string> ReadOnFileAsync(string FileName)
         {
             try
             {
-                using (StreamReader SR = new StreamReader(FolderName + FileName))
-                    return SR.ReadToEnd();
+                StorageFile File = await StorageFile.GetFileFromPathAsync(FolderName + FileName);
+                return await FileIO.ReadTextAsync(File);
             }
             catch
             {
@@ -53,14 +55,15 @@ namespace LBeaconLaserPointer.Modules.Utilities
             }
         }
 
-        public static bool CleanAllFile()
+        public static async Task<bool> CleanAllFileAsync()
         {
             try
             {
-                if (!Directory.Exists(FolderName))
-                    Directory.CreateDirectory(FolderName);
-
-                File.Delete(FolderName + "*");
+                if (await ApplicationData.Current.LocalFolder.TryGetItemAsync("Storage") != null)
+                {
+                    StorageFolder Folder = await StorageFolder.GetFolderFromPathAsync(FolderName);
+                    await Folder.DeleteAsync();
+                }
 
                 return true;
             }

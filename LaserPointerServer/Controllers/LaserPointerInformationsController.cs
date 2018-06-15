@@ -51,7 +51,7 @@ namespace LBeacon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Longitude,Latitude,FaceLongitude,FaceLatitude,Floor")] LaserPointerInformation laserPointerInformation)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Position,Longitude,Latitude,FaceLongitude,FaceLatitude,Floor")] LaserPointerInformation laserPointerInformation)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace LBeacon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Longitude,Latitude,FaceLongitude,FaceLatitude,Floor")] LaserPointerInformation laserPointerInformation)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Position,Longitude,Latitude,FaceLongitude,FaceLatitude,Floor")] LaserPointerInformation laserPointerInformation)
         {
             if (ModelState.IsValid)
             {
