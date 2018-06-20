@@ -246,8 +246,8 @@ namespace LBeaconLaserPointer.xaml
                         {
                             string BLJson = JsonConvert.SerializeObject(new
                             {
-                                BeaconInformation = JsonConvert.SerializeObject(ServerData.Item1),
-                                LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item2)
+                                BeaconInformation = JsonConvert.SerializeObject(ServerData.Item2),
+                                LaserPointerInformation = JsonConvert.SerializeObject(ServerData.Item3)
                             });
                             if (await LocalStorage.WriteToFileAsync(Data[1], BLJson))
                             {
@@ -322,17 +322,6 @@ namespace LBeaconLaserPointer.xaml
             if (Frame.CanGoBack) Frame.GoBack();
         }
 
-        private async void ShowContentDialog()
-        {
-            var dialog = new ContentDialog()
-            {
-                Title = "消息提示",
-                Content = "当前设置尚未保存，你确认要退出该页面吗?",
-                PrimaryButtonText = "确定",
-                SecondaryButtonText = "取消",
-            };
-            dialog.PrimaryButtonClick += (_s, _e) => { Frame.Navigate(typeof(PointPage)); };
-            await dialog.ShowAsync();
-        }
+
     }
 }

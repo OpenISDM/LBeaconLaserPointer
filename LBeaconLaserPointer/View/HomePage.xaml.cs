@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Gpio;
+using LBeaconLaserPointer.View;
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LBeaconLaserPointer.xaml
@@ -58,7 +59,7 @@ namespace LBeaconLaserPointer.xaml
         {
 
 
-            //Frame.Navigate(typeof(PointPage));
+            Frame.Navigate(typeof(PointPage));
         }
 
 

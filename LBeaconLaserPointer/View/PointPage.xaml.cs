@@ -43,7 +43,7 @@ namespace LBeaconLaserPointer.xaml
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
-            if(Frame.CanGoBack) Frame.GoBack();
+            Frame.Navigate(typeof(HomePage));
         }
 
         private async void BtnGoNext_Click(object sender, RoutedEventArgs e)

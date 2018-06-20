@@ -4,11 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
+using Windows.Devices.Gpio;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-
+using LBeaconLaserPointer.Modules.Motor;
+using LBeaconLaserPointer.Modules.Distance;
 namespace LBeaconLaserPointer.Modules
 {
+    public class Utility
+    {
+        const int MOTER_A1_PIN = 5;
+        const int MOTER_A2_PIN = 22;
+        const int MOTER_PWMA_PIN = 27;
+        const int MOTER_B1_PIN = 13;
+        const int MOTER_B2_PIN = 19;
+        const int MOTER_PWMB_PIN = 26;
+        const int MOTER_STBY_PIN = 6;
+        const int PHOTOINTERRUPTER_VERTICAL_CORRECT_PIN = 20;
+        const int PHOTOINTERRUPTER_VERTICAL_PIN = 16;
+        const int PHOTOINTERRUPTER_HORIZONTAL_PIN = 21;
+        public static GpioController Gpio = GpioController.GetDefault();
+        public static VerticalMotor verticalMotor =
+                        new VerticalMotor(Gpio.OpenPin(MOTER_A1_PIN),
+                                            Gpio.OpenPin(MOTER_A2_PIN),
+                                            Gpio.OpenPin(MOTER_PWMA_PIN),
+                                            Gpio.OpenPin(PHOTOINTERRUPTER_VERTICAL_PIN),
+                                            Gpio.OpenPin(PHOTOINTERRUPTER_VERTICAL_CORRECT_PIN), 29);
+        public static HorizontalMotor horizontalMotor =
+                         new HorizontalMotor(Gpio.OpenPin(MOTER_B1_PIN),
+                                             Gpio.OpenPin(MOTER_B2_PIN),
+                                             Gpio.OpenPin(MOTER_PWMB_PIN),
+                                             Gpio.OpenPin(PHOTOINTERRUPTER_HORIZONTAL_PIN), 29);
+
+    }
     public class RotateAngle
     {
         /// <summary>
@@ -20,7 +48,7 @@ namespace LBeaconLaserPointer.Modules
         /// <returns></returns>
         public static double VerticalRotateAngle(GeoCoordinate CenterPoint, GeoCoordinate TargetPoint, double Hight)
         {
-            return Math.Acos(Hight / CenterPoint.GetDistanceTo(TargetPoint));
+            return Math.Atan(Hight / CenterPoint.GetDistanceTo(TargetPoint)) * 180 / Math.PI;
         }
 
         /// <summary>

@@ -10,12 +10,11 @@
 
     <Grid Background="Gray" >
         <Grid Height="90" VerticalAlignment="Top" Background="slategray">
-            <TextBlock Foreground="White"  Text="定位中..." VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0" FontSize="36" FontWeight="Normal" FontFamily="Segoe UI" />
+            <TextBlock Foreground="White" x:Name="Title" Text="定位中..." VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0" FontSize="36" FontWeight="Normal" FontFamily="Segoe UI" />
         </Grid>
-        <Button x:Name="BtnCancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="200" Margin="30,30,30,30" Click="BtnCancel_Click" >
-            <StackPanel>
-                <Image Source="ms-appx:///View/image/Cancel.png" Height="140"/>
-                <TextBlock Foreground="White" TextAlignment ="Center" FontSize="36" Text="取消定位" FontWeight="Bold"/>
+        <Button x:Name="BtnOK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" Click="BtnOK_Click" Visibility="Collapsed" >
+            <StackPanel> 
+                <TextBlock Foreground="White" TextAlignment ="Center" FontSize="36" Text="定位完成！" FontWeight="Bold"/>
             </StackPanel>
         </Button>
     </Grid>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GeoCoordinatePortable;
+using LBeaconLaserPointer.Modules;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,11 +27,29 @@ namespace LBeaconLaserPointer.View
         public PointingPage()
         {
             this.InitializeComponent();
+            BtnOK.Visibility = Visibility.Collapsed;
+            GeoCoordinate CenterPoint = new GeoCoordinate(25.0415216287522, 121.614881758979);
+            GeoCoordinate facePoint = new GeoCoordinate(25.0415216287522, 121.614884958979);
+            GeoCoordinate targetPoint = new GeoCoordinate(25.0415526287522, 121.614844258979);
+            int horizontalRotateAngle = (int)RotateAngle.HorizontalRotateAngle(
+                                                CenterPoint,
+                                                facePoint,
+                                                targetPoint);
+            int verticalRotateAngle = (int)RotateAngle.VerticalRotateAngle(
+                                    CenterPoint,
+                                    targetPoint,
+                                    1.2);
+            Utility.verticalMotor.Correction();
+            Utility.verticalMotor.PositiveRotation(verticalRotateAngle);
+            Utility.horizontalMotor.PositiveRotation(horizontalRotateAngle);
+
+            BtnOK.Visibility = Visibility.Visible;
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+            private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
 
+            Frame.Navigate(typeof(xaml.HomePage));
         }
     }
 }
