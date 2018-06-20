@@ -269,8 +269,16 @@ namespace LBeaconLaserPointer.xaml
 
                         break;
                     default:
-                        await CleanupMediaCaptureAsync();
-                        Frame.Navigate(typeof(LBeaconInfoPage), Value);
+                        if (PointPage.BeaconInformations.Where(c =>c.Id == Guid.Parse(Value)).Count() > 0)
+                        {
+                            await CleanupMediaCaptureAsync();
+                            Frame.Navigate(typeof(LBeaconInfoPage), Value);
+                        }
+                        else
+                        {
+                            lock (firstOpenLock)
+                                firstOpen = true;
+                        }
                         break;
                 }
         }

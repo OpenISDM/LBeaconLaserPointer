@@ -36,6 +36,15 @@ namespace LBeaconLaserPointer.xaml
         private async void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             await LocalStorage.CleanAllFileAsync();
+
+            ContentDialog dialog = new ContentDialog
+            {
+                Title = "訊息",
+                Content = "清除成功",
+                PrimaryButtonText = "確定"
+            };
+
+            await dialog.ShowAsync();
         }
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)
