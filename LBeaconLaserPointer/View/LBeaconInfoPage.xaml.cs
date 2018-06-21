@@ -1,26 +1,13 @@
 ﻿using GeoCoordinatePortable;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LBeaconLaserPointer.Modules;
 using LBeaconLaserPointer.Modules.Distance;
 using LLP_API;
 using LBeaconLaserPointer.xaml;
-using LBeaconLaserPointer.Modules.Motor;
-using Windows.Devices.Gpio;
-using LBeaconLaserPointer.Modules.Distance;
-using LBeaconLaserPointer.Modules.Utilities;
 
 // 空白頁項目範本已記錄在 https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,9 +20,6 @@ namespace LBeaconLaserPointer.View
     {
         static GeoCoordinate facePoint, CenterPoint, targetPoint;
         static string UUID;
-        GpioPin pinA1;
-
-
 
         public LBeaconInfoPage()
         {

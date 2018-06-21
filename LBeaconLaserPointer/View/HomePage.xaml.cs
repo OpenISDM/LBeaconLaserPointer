@@ -28,7 +28,6 @@ namespace LBeaconLaserPointer.xaml
             this.InitializeComponent();
         }
 
-        private GpioPin pin;
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Setpage));

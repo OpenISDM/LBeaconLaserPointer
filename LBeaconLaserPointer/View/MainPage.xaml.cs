@@ -22,7 +22,6 @@ namespace LBeaconLaserPointer
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private GpioPin pin;
         public MainPage()
         {
             this.InitializeComponent();

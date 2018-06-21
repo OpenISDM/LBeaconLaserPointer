@@ -228,7 +228,7 @@ namespace LBeaconLaserPointer.xaml
         public async void NextStepAsync(string Value)
         {
             bool functionFirstIn = false;
-            lock(firstOpenLock)
+            lock (firstOpenLock)
                 if (firstOpen)
                 {
                     firstOpen = false;
@@ -269,7 +269,7 @@ namespace LBeaconLaserPointer.xaml
 
                         break;
                     default:
-                        if (PointPage.BeaconInformations.Where(c =>c.Id == Guid.Parse(Value)).Count() > 0)
+                        if (PointPage.BeaconInformations.Where(c => c.Id.ToString() == Value).Count() > 0)
                         {
                             await CleanupMediaCaptureAsync();
                             Frame.Navigate(typeof(LBeaconInfoPage), Value);
