@@ -25,18 +25,22 @@ namespace LBeaconLaserPointer.View
         {
             this.InitializeComponent();
         }
-       
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
             UUID = (string)e.Parameter;
             TextLBeaconID.Text = "LBeaconID: " + UUID;
-            BeaconInformation BI = PointPage.BeaconInformations.Where(c => c.Id == Guid.Parse(UUID)).First();
-            LaserPointerInformation LPI = PointPage.LaserPointerInformations.Where(c => c.Id == BI.LaserPointerInformationId).First();
+            BeaconInformation BI = 
+                PointPage.BeaconInformations.Where(
+                    c => c.Id == Guid.Parse(UUID)).First();
+            LaserPointerInformation LPI = 
+                PointPage.LaserPointerInformations.Where(
+                    c => c.Id == BI.LaserPointerInformationId).First();
 
-            latitude.Text ="經度: "+ BI.Latitude.ToString();
-            longitude.Text = "緯度: "+ BI.Longitude.ToString();
-            ReferencePoint.Text = "地點: "+ LPI.Position;
+            latitude.Text = "經度: " + BI.Latitude.ToString();
+            longitude.Text = "緯度: " + BI.Longitude.ToString();
+            ReferencePoint.Text = "地點: " + LPI.Position;
 
             facePoint = new GeoCoordinate(LPI.FaceLatitude, LPI.FaceLongitude);
             CenterPoint = new GeoCoordinate(LPI.Latitude, LPI.Longitude);
@@ -51,35 +55,55 @@ namespace LBeaconLaserPointer.View
 
         private void BtnGoStart_Click(object sender, RoutedEventArgs e)
         {
-            int horizontalRotateAngle = (int)RotateAngle.HorizontalRotateAngle(
-                                                CenterPoint,
-                                                facePoint,
-                                                targetPoint);
-            int verticalRotateAngle = (int)RotateAngle.VerticalRotateAngle(
-                                    CenterPoint,
-                                    targetPoint,
-                                    DistanceSensor.Distance/100);
 
-            latitude.Text = "垂直轉動(度): " + verticalRotateAngle.ToString();
-            longitude.Text = "水平轉動(度): " + horizontalRotateAngle.ToString();
-            ReferencePoint.Text = "偵測高度(cm): " + DistanceSensor.Distance.ToString();
+
+            //偵測數值有誤
+            const double HEIGHT_MAX = 1100;
+            const double HEIGHT_MIN = 60;
+            const double DISTANCE_MAX = 50;
+            double measureHeight =
+                DistanceSensor.Distance;
+            double measureLeftDistance =
+                Utility.ultraSonicSensor2.GetDistanceInCentimeters;
+            double measureRightDistance =
+                Utility.ultraSonicSensor2.GetDistanceInCentimeters;
+
+            if (measureHeight > HEIGHT_MAX || measureHeight < HEIGHT_MIN)
+            {
+                ShowErrorDialog("高度偵測錯誤！！請再試一次");
+                return;
+            }
+            if (measureLeftDistance > DISTANCE_MAX ||
+                measureRightDistance > DISTANCE_MAX)
+            {
+                ShowErrorDialog("距離偵測錯誤！！請面向牆壁後再試一次");
+                return;
+            }
+
+            //取得角度
+            int horizontalRotateAngle = 
+                (int)RotateAngle.HorizontalRotateAngle(CenterPoint,
+                                                       facePoint,
+                                                       targetPoint);
+            int verticalRotateAngle = 
+                (int)RotateAngle.VerticalRotateAngle(CenterPoint,
+                                                     targetPoint,
+                                                     DistanceSensor.Distance / 100);
+            //垂直校準
             Utility.verticalMotor.Correction();
+            //水平校準
+            Utility.horizontalMotor.Correction();
+            //垂直轉動
             Utility.verticalMotor.PositiveRotation(verticalRotateAngle);
-            if(horizontalRotateAngle < 0)
+            //水平轉動
+            if (horizontalRotateAngle < 0)
                 Utility.horizontalMotor.PositiveRotation(-horizontalRotateAngle);
             else
                 Utility.horizontalMotor.ReverseRotation(horizontalRotateAngle);
 
-            //ShowContentDialog();
-
-
-            //GeoCoordinate[] PointGeoCoordinate = new GeoCoordinate[3];
-            //PointGeoCoordinate[0] = CenterPoint;
-            //PointGeoCoordinate[1] = facePoint;
-            //PointGeoCoordinate[2] = targetPoint;
-            //Frame.Navigate(typeof(PointingPage), PointGeoCoordinate);
+            ShowSuccessDialog();
         }
-        private async void ShowContentDialog()
+        private async void ShowSuccessDialog()
         {
             var dialog = new ContentDialog()
             {
@@ -87,6 +111,15 @@ namespace LBeaconLaserPointer.View
                 PrimaryButtonText = "確定",
             };
             dialog.PrimaryButtonClick += (_s, _e) => { Frame.Navigate(typeof(HomePage)); };
+            await dialog.ShowAsync();
+        }
+        private async void ShowErrorDialog(string title)
+        {
+            var dialog = new ContentDialog()
+            {
+                Title = title,
+                PrimaryButtonText = "確定",
+            };
             await dialog.ShowAsync();
         }
     }

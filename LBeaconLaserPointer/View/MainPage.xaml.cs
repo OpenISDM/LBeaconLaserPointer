@@ -30,6 +30,7 @@ namespace LBeaconLaserPointer
             //pin.Write(GpioPinValue.High);
             //pin.SetDriveMode(GpioPinDriveMode.Output);
             MainFrame.Navigate(typeof(xaml.HomePage));
+            
         }
 
 

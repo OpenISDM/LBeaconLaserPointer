@@ -23,6 +23,10 @@ namespace LBeaconLaserPointer.Modules
         const int PHOTOINTERRUPTER_VERTICAL_CORRECT_PIN = 20;
         const int PHOTOINTERRUPTER_VERTICAL_PIN = 16;
         const int PHOTOINTERRUPTER_HORIZONTAL_PIN = 21;
+        const int SONIC_SENSOR_TRIG = 23;
+        const int SONIC_SENSOR_TRIG_ECHO = 24;
+        const int SONIC_SENSOR2_TRIG = 25;
+        const int SONIC_SENSOR2_TRIG_ECHO = 12;
         public static GpioController Gpio = GpioController.GetDefault();
         public static VerticalMotor verticalMotor =
                         new VerticalMotor(Gpio.OpenPin(MOTER_A1_PIN),
@@ -30,11 +34,20 @@ namespace LBeaconLaserPointer.Modules
                                             Gpio.OpenPin(MOTER_PWMA_PIN),
                                             Gpio.OpenPin(PHOTOINTERRUPTER_VERTICAL_PIN),
                                             Gpio.OpenPin(PHOTOINTERRUPTER_VERTICAL_CORRECT_PIN), 29);
+
         public static HorizontalMotor horizontalMotor =
                          new HorizontalMotor(Gpio.OpenPin(MOTER_B1_PIN),
                                              Gpio.OpenPin(MOTER_B2_PIN),
                                              Gpio.OpenPin(MOTER_PWMB_PIN),
                                              Gpio.OpenPin(PHOTOINTERRUPTER_HORIZONTAL_PIN), 29);
+
+        public static UltraSonicSensor ultraSonicSensor = 
+            new UltraSonicSensor(Gpio.OpenPin(SONIC_SENSOR_TRIG),
+                                    Gpio.OpenPin(SONIC_SENSOR_TRIG_ECHO));
+
+        public static UltraSonicSensor ultraSonicSensor2 =
+            new UltraSonicSensor(Gpio.OpenPin(SONIC_SENSOR2_TRIG),
+                                    Gpio.OpenPin(SONIC_SENSOR2_TRIG_ECHO));
 
     }
     public class RotateAngle
